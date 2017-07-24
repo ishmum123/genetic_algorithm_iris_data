@@ -1,6 +1,11 @@
 from unittest import TestCase
-from function_generator import FunctionGenerator
 from inspect import signature
+from sys import path
+from os.path import dirname, join
+
+path.append(join(dirname(__file__), ".."))
+
+from function_generator import FunctionGenerator
 
 
 class TestFunctionGenerator(TestCase):

@@ -1,6 +1,11 @@
 from unittest import TestCase
-from file_processor import FileProcessor
 from io import StringIO
+from sys import path
+from os.path import dirname, join
+
+path.append(join(dirname(__file__), ".."))
+
+from file_processor import FileProcessor
 
 
 class FakeFile(StringIO):

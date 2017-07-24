@@ -1,4 +1,9 @@
 from unittest import TestCase
+from sys import path
+from os.path import dirname, join
+
+path.append(join(dirname(__file__), ".."))
+
 from variable_processor import VariableProcessor
 
 

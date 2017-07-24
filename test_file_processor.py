@@ -20,13 +20,21 @@ class TestFileProcessor(TestCase):
 		test_str = "Test String"
 		self.assertTrue(isinstance(self.processor.readFile(self.getFakeFile(test_str)), list))
 
+	def test_readFile_returns_list_of_words_from_file_splitted_by_space_by_default(self):
+		test_str = "Test String"
+		self.assertEqual(self.processor.readFile(self.getFakeFile(test_str)), [["Test", "String"]])
+
+	def test_readFile_returns_list_of_words_from_file_splitted_by_tab(self):
+		test_str = "Test\tString"
+		self.assertEqual(self.processor.readFile(self.getFakeFile(test_str), "\t"), [["Test", "String"]])
+
 	def test_readFile_returns_comma_separated_values_as_list(self):
 		test_str = "test,str"
-		self.assertEqual(self.processor.readFile(self.getFakeFile(test_str)), [["test", "str"]])
+		self.assertEqual(self.processor.readFile(self.getFakeFile(test_str), ","), [["test", "str"]])
 
 	def test_readFile_returns_each_line_as_new_list(self):
 		test_str = "test,this\nline,str"
-		self.assertEqual(self.processor.readFile(self.getFakeFile(test_str)), [["test", "this"], ["line", "str"]])
+		self.assertEqual(self.processor.readFile(self.getFakeFile(test_str), ","), [["test", "this"], ["line", "str"]])
 
 	def test_retrieveData_returns_dict_of_variables_and_last_element_as_desired_class(self):
 		test_list = ["test_var1", "test_var2", "test_var3", "90", "test_class"]

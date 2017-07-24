@@ -2,10 +2,10 @@ from re import match
 
 
 class FileProcessor:
-	def readFile(self, passed_file):
+	def readFile(self, passed_file, split_by = " "):
 		data_list = []
 		for i, l in enumerate(passed_file):
-			data_list.append(l.strip().split(","))
+			data_list.append(l.strip().split(split_by))
 		return data_list
 
 	def retrieveData(self, data):

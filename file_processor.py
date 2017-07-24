@@ -1,3 +1,6 @@
+from re import match
+
+
 class FileProcessor:
 	def readFile(self, passed_file):
 		data_list = []
@@ -6,11 +9,15 @@ class FileProcessor:
 		return data_list
 
 	def retrieveData(self, data):
-		string_data = []
-		num_data = []
+		num = "num"
+		string = "string"
+		data_dict = {
+			num: [],
+			string: []
+		}
 		for var in data[:-1]:
-			if isinstance(var, int):
-				num_data.append(var)
+			if var.isdigit() or match("^\d+?\.\d+?$", var) is not None:
+				data_dict[num].append(float(var))
 			else:
-				string_data.append(var)
-		return ((string_data, num_data), data[-1])
+				data_dict[string].append(var)
+		return (data_dict, data[-1])

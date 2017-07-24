@@ -28,12 +28,13 @@ class TestFileProcessor(TestCase):
 		test_str = "test,this\nline,str"
 		self.assertEqual(self.processor.readFile(self.getFakeFile(test_str)), [["test", "this"], ["line", "str"]])
 
-	def test_retrieveData_returns_tuple_of_variables_and_last_element_as_desired_class(self):
-		test_list = ["test_var1", "test_var2", "test_var3", 90, "test_class"]
+	def test_retrieveData_returns_dict_of_variables_and_last_element_as_desired_class(self):
+		test_list = ["test_var1", "test_var2", "test_var3", "90", "test_class"]
 		(data, des_class) = self.processor.retrieveData(test_list)
+		self.assertTrue(isinstance(data, dict))
 		self.assertEqual(des_class, "test_class")
 
 	def test_retrieveData_returns_string_and_number_variables_in_separate_list(self):
-		test_list = ["test_var1", 90, "test_var2", "test_class"]
+		test_list = ["test_var1", "123.5samp", "sadkf123", "90", "test_var2", "3434.134", "test_class"]
 		(data, des_class) = self.processor.retrieveData(test_list)
-		self.assertEqual(data, (["test_var1", "test_var2"], [90]))
+		self.assertEqual(data, {"string":["test_var1", "123.5samp", "sadkf123", "test_var2"],"num":[90, 3434.134]})
